@@ -967,7 +967,8 @@ bool UBLOX_parse_gps(void)
     case MSG_SOL:
         next_fix	= (_buffer.solution.fix_status & NAV_STATUS_FIX_VALID) && (_buffer.solution.fix_type == FIX_3D);
 	if (!next_fix) i2c_dataset.status.gps3dfix = false;
-	 i2c_dataset.status.numsats	= _buffer.solution.satellites;
+        if (_buffer.solution.satellites>15) i2c_dataset.status.numsats  = 15;
+        else i2c_dataset.status.numsats = _buffer.solution.satellites;
         //GPS_hdop		= _buffer.solution.position_DOP;
         //debug[3] = GPS_hdop;
         break;
