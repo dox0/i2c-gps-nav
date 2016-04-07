@@ -288,6 +288,14 @@ static int32_t GPS_filtered[2];
 static int32_t GPS_degree[2];    //the lat lon degree without any decimals (lat/10 000 000)
 static int32_t GPS_lead_latitude, GPS_lead_longitude;
 
+uint32_t GPS_distance_cm(int32_t lat1, int32_t lon1, int32_t lat2, int32_t lon2);
+int32_t GPS_bearing(int32_t lat1, int32_t lon1, int32_t lat2, int32_t lon2);
+static void GPS_calc_location_error( int32_t target_lat, int32_t target_lng, int32_t gps_lat, int32_t gps_lng );
+int32_t wrap_18000(int32_t error);
+int32_t wrap_36000(int32_t angle);
+static void GPS_update_crosstrack(void);
+bool UBLOX_parse_gps(void);
+
 ////////////////////////////////////////////////////////////////////////////////////
 // this is used to offset the shrinking longitude as we go towards the poles	
 // It's ok to calculate this once per waypoint setting, since it changes a little within the reach of a multicopter
@@ -943,7 +951,6 @@ bool GPS_UBLOX_newFrame(uint8_t data)
 
 bool UBLOX_parse_gps(void)
 {
-
     switch (_msg_id) {
     case MSG_POSLLH:
         i2c_dataset.time	        = _buffer.posllh.time;
@@ -960,7 +967,7 @@ bool UBLOX_parse_gps(void)
     case MSG_SOL:
         next_fix	= (_buffer.solution.fix_status & NAV_STATUS_FIX_VALID) && (_buffer.solution.fix_type == FIX_3D);
 	if (!next_fix) i2c_dataset.status.gps3dfix = false;
-        i2c_dataset.status.numsats	= _buffer.solution.satellites;
+	 i2c_dataset.status.numsats	= _buffer.solution.satellites;
         //GPS_hdop		= _buffer.solution.position_DOP;
         //debug[3] = GPS_hdop;
         break;
@@ -1237,7 +1244,7 @@ void blink_sonar_update()
   uint32_t init_speed[5] = {9600,19200,38400,57600,115200};
 
  #if defined(UBLOX)
-   prog_char UBLOX_INIT[] PROGMEM = {                          // PROGMEM array must be outside any function !!!
+   const prog_char UBLOX_INIT[] PROGMEM = {                          // PROGMEM array must be outside any function !!!
      0xB5,0x62,0x06,0x01,0x03,0x00,0xF0,0x05,0x00,0xFF,0x19,                            //disable all default NMEA messages
      0xB5,0x62,0x06,0x01,0x03,0x00,0xF0,0x03,0x00,0xFD,0x15,
      0xB5,0x62,0x06,0x01,0x03,0x00,0xF0,0x01,0x00,0xFB,0x11,
