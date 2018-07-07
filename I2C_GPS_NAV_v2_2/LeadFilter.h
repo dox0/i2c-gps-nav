@@ -3,10 +3,11 @@
 
 #include "LeadFilter.h"
 
-class LeadFilter {
+class LeadFilter
+{
 public:
-    LeadFilter() :
-        _last_velocity(0) {
+    LeadFilter() : _last_velocity(0) 
+    {
     }
 
     // setup min and max radio values in CLI

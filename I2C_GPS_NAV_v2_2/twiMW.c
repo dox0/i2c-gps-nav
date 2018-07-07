@@ -150,7 +150,7 @@ uint8_t twi_readFrom(uint8_t address, uint8_t* data, uint8_t length)
   for(i = 0; i < length; ++i){
     data[i] = twi_masterBuffer[i];
   }
-	
+    
   return length;
 }
 
@@ -207,13 +207,13 @@ uint8_t twi_writeTo(uint8_t address, uint8_t* data, uint8_t length, uint8_t wait
   }
   
   if (twi_error == 0xFF)
-    return 0;	// success
+    return 0;   // success
   else if (twi_error == TW_MT_SLA_NACK)
-    return 2;	// error: address send, nack received
+    return 2;   // error: address send, nack received
   else if (twi_error == TW_MT_DATA_NACK)
-    return 3;	// error: data send, nack received
+    return 3;   // error: data send, nack received
   else
-    return 4;	// other twi error
+    return 4;   // other twi error
 }
 
 /* 
@@ -283,7 +283,7 @@ void twi_reply(uint8_t ack)
   if(ack){
     TWCR = _BV(TWEN) | _BV(TWIE) | _BV(TWINT) | _BV(TWEA);
   }else{
-	  TWCR = _BV(TWEN) | _BV(TWIE) | _BV(TWINT);
+      TWCR = _BV(TWEN) | _BV(TWIE) | _BV(TWINT);
   }
 }
 
