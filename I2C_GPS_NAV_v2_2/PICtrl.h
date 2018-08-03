@@ -23,10 +23,10 @@ public:
     /// @param  initial_imax    Initial value for the imax term.4
     ///
     PICtrl(const float &initial_p = 0.0,
-           const float &initial_i = 0.0,
-           const int16_t &initial_imax = 0.0) :
-        _kp  (initial_p),
-        _ki  (initial_i),
+        const float &initial_i = 0.0,
+        const int16_t &initial_imax = 0.0) :
+        _kp(initial_p),
+        _ki(initial_i),
         _imax(initial_imax)
     {
         // no need for explicit load, assuming that the main code uses AP_Var::load_all.
@@ -61,22 +61,22 @@ public:
 
     /// Overload the function call operator to permit relatively easy initialisation
     void operator() (const float p,
-                     const float i,
-                     const int16_t imaxval)
+        const float i,
+        const int16_t imaxval)
     {
         _kp = p;
         _ki = i;
         _imax = imaxval;
     }
 
-    float   kP() const              { return _kp; }
-    float   kI() const              { return _ki; }
-    int16_t imax() const            { return _imax; }
+    float   kP() const { return _kp; }
+    float   kI() const { return _ki; }
+    int16_t imax() const { return _imax; }
 
-    void    kP(const float v)       { _kp=v; }
-    void    kI(const float v)       { _ki=v; }
-    void    imax(const int16_t v)   { _imax=abs(v); }
-    float   get_integrator() const  { return _integrator; }
+    void    kP(const float v) { _kp = v; }
+    void    kI(const float v) { _ki = v; }
+    void    imax(const int16_t v) { _imax = abs(v); }
+    float   get_integrator() const { return _integrator; }
     void    set_integrator(float i) { _integrator = i; }
 
 

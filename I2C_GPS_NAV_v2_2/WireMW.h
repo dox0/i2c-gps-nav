@@ -38,8 +38,8 @@ private:
     static uint8_t txBufferLength;
 
     static uint8_t transmitting;
-    static void (*user_onRequest)(void);
-    static void (*user_onReceive)(int);
+    static void(*user_onRequest)(void);
+    static void(*user_onReceive)(int);
     static void onRequestService(void);
     static void onReceiveService(uint8_t*, int);
 public:
@@ -58,9 +58,9 @@ public:
     virtual int read(void);
     virtual int peek(void);
     virtual void flush(void);
-    void onReceive( void (*)(int) );
-    void onRequest( void (*)(void) );
-  
+    void onReceive(void(*)(int));
+    void onRequest(void(*)(void));
+
     using Print::write;
 };
 

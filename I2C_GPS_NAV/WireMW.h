@@ -27,7 +27,7 @@
 
 class TwoWire : public Stream
 {
-  private:
+private:
     static uint8_t rxBuffer[];
     static uint8_t rxBufferIndex;
     static uint8_t rxBufferLength;
@@ -38,11 +38,11 @@ class TwoWire : public Stream
     static uint8_t txBufferLength;
 
     static uint8_t transmitting;
-    static void (*user_onRequest)(void);
-    static void (*user_onReceive)(int);
+    static void(*user_onRequest)(void);
+    static void(*user_onReceive)(int);
     static void onRequestService(void);
     static void onReceiveService(uint8_t*, int);
-  public:
+public:
     TwoWire();
     void begin();
     void begin(uint8_t);
@@ -57,10 +57,10 @@ class TwoWire : public Stream
     virtual int available(void);
     virtual int read(void);
     virtual int peek(void);
-	virtual void flush(void);
-    void onReceive( void (*)(int) );
-    void onRequest( void (*)(void) );
-  
+    virtual void flush(void);
+    void onReceive(void(*)(int));
+    void onRequest(void(*)(void));
+
     using Print::write;
 };
 

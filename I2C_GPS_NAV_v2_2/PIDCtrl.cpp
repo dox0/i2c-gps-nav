@@ -8,7 +8,7 @@ int32_t PIDCtrl::get_p(int32_t error)
 
 int32_t PIDCtrl::get_i(int32_t error, float dt)
 {
-    if((_ki != 0) && (dt != 0))
+    if ((_ki != 0) && (dt != 0))
     {
         _integrator += ((float)error * _ki) * dt;
         if (_integrator < -_imax)
@@ -33,11 +33,11 @@ int32_t PIDCtrl::get_d(int32_t input, float dt)
         // discrete low pass filter, cuts out the
         // high frequency noise that can drive the controller crazy
         _derivative = _last_derivative +
-                (dt / ( _filter + dt)) * (_derivative - _last_derivative);
+            (dt / (_filter + dt)) * (_derivative - _last_derivative);
 
         // update state
-        _last_input         = input;
-        _last_derivative    = _derivative;
+        _last_input = input;
+        _last_derivative = _derivative;
 
         // add in derivative component
         return _kd * _derivative;

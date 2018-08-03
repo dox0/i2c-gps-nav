@@ -16,9 +16,9 @@ public:
         const float &initial_d = 0.0,
         const int16_t &initial_imax = 0.0) :
 
-        _kp  (initial_p),
-        _ki  (initial_i),
-        _kd  (initial_d),
+        _kp(initial_p),
+        _ki(initial_i),
+        _kd(initial_d),
         _imax(initial_imax)
     {
         // no need for explicit load
@@ -50,23 +50,24 @@ public:
 
     /// Overload the function call operator to permit relatively easy initialisation
     void operator() (const float p,
-                     const float i,
-                     const float d,
-                     const int16_t imaxval) {
+        const float i,
+        const float d,
+        const int16_t imaxval) 
+    {
         _kp = p; _ki = i; _kd = d; _imax = abs(imaxval);
     }
 
-    float   kP() const              { return _kp; }
-    float   kI() const              { return _ki; }
-    float   kD() const              { return _kd; }
-    int16_t imax() const            { return _imax; }
+    float   kP() const { return _kp; }
+    float   kI() const { return _ki; }
+    float   kD() const { return _kd; }
+    int16_t imax() const { return _imax; }
 
-    void    kP(const float v)       { _kp = v; }
-    void    kI(const float v)       { _ki = v; }
-    void    kD(const float v)       { _kd = v; }
-    void    imax(const int16_t v)   { _imax = abs(v); }
+    void    kP(const float v) { _kp = v; }
+    void    kI(const float v) { _ki = v; }
+    void    kD(const float v) { _kd = v; }
+    void    imax(const int16_t v) { _imax = abs(v); }
 
-    float   get_integrator() const  { return _integrator; }
+    float   get_integrator() const { return _integrator; }
     void    set_integrator(float i) { _integrator = i; }
 
 
